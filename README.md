@@ -40,6 +40,30 @@ This variable is a list of dict. The following keys are accepted.
 | `mode` | Permission of the file. Default is `0644` | no |
 | `content` | Content of the file | yes when `state` is `present`, no when `absent` |
 
+## Debian
+
+| Variable | Default |
+|----------|---------|
+| `__rsyslog_user` | `root` |
+| `__rsyslog_group` | `root` |
+| `__rsyslog_service` | `rsyslog` |
+| `__rsyslog_package` | `rsyslog` |
+| `__rsyslog_work_dir` | `/var/spool/rsyslog` |
+| `__rsyslog_conf_dir` | `/etc` |
+| `__rsyslog_conf_d_dirs` | `["/etc/rsyslog.d"]` |
+
+## RedHat
+
+| Variable | Default |
+|----------|---------|
+| `__rsyslog_user` | `root` |
+| `__rsyslog_group` | `root` |
+| `__rsyslog_service` | `rsyslog` |
+| `__rsyslog_package` | `rsyslog` |
+| `__rsyslog_work_dir` | `/var/lib/rsyslog` |
+| `__rsyslog_conf_dir` | `/etc` |
+| `__rsyslog_conf_d_dirs` | `["/etc/rsyslog.d"]` |
+
 # Dependencies
 
 None
