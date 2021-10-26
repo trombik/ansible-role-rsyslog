@@ -1,0 +1,9 @@
+---
+__rsyslog_user: root
+__rsyslog_group: root
+__rsyslog_service: rsyslog
+__rsyslog_package: rsyslog
+__rsyslog_work_dir: /var/lib/rsyslog
+__rsyslog_conf_dir: /etc
+__rsyslog_conf_d_dirs:
+  - /etc/rsyslog.d

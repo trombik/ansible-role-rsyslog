@@ -1,0 +1,6 @@
+---
+
+- name: Restart rsyslog
+  service:
+    name: "{{ rsyslog_service }}"
+    state: restarted

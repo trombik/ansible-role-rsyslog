@@ -1,0 +1,54 @@
+---
+# tasks file for ansible-role-rsyslog
+
+- name: "Include {{ ansible_os_family }}.yml"
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: "Include install-{{ ansible_os_family }}.yml"
+  include: "install-{{ ansible_os_family }}.yml"
+
+- name: Create rsyslog_conf_d_dirs
+  ansible.builtin.file:
+    state: directory
+    mode: "0755"
+    path: "{{ item }}"
+  with_items: "{{ rsyslog_conf_d_dirs }}"
+
+- name: Create rsyslog_conf_file
+  ansible.builtin.template:
+    src: rsyslog.conf.j2
+    dest: "{{ rsyslog_conf_file }}"
+    mode: "0644"
+  notify: Restart rsyslog
+
+- name: Assert rsyslog_config_flagments
+  ansible.builtin.assert:
+    that:
+      - "'state' in item"
+      - "'path' in item"
+      - item['state'] == 'present' or item['state'] == 'absent'
+  with_items: "{{ rsyslog_config_flagments }}"
+
+- name: Create rsyslog_config_flagments
+  ansible.builtin.template:
+    src: flagment.conf.j2
+    dest: "{{ item['path'] }}"
+    mode: "{{ item['mode'] | default('0644') }}"
+  with_items: "{{ rsyslog_config_flagments }}"
+  when:
+    - item['state'] == 'present'
+  notify: Restart rsyslog
+
+- name: Delete rsyslog_config_flagments
+  ansible.builtin.file:
+    path: "{{ item['path'] }}"
+    state: absent
+  with_items: "{{ rsyslog_config_flagments }}"
+  when:
+    - item['state'] == 'absent'
+  notify: Restart rsyslog
+
+- name: Start rsyslog
+  ansible.builtin.service:
+    name: "{{ rsyslog_service }}"
+    state: started

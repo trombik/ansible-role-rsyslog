@@ -1,0 +1,22 @@
+---
+
+- name: Install rsyslog_package
+  ansible.builtin.yum:
+    name: "{{ rsyslog_package }}"
+    state: present
+
+- name: Install rsyslog_extar_packages
+  ansible.builtin.yum:
+    name: "{{ rsyslog_extar_packages }}"
+    state: present
+
+- name: Create /etc/sysconfig/rsyslog
+  ansible.builtin.template:
+    src: sysconfig.j2
+    dest: /etc/sysconfig/rsyslog
+    mode: "0644"
+
+- name: Enable rsyslog_service
+  ansible.builtin.service:
+    name: "{{ rsyslog_service }}"
+    enabled: yes

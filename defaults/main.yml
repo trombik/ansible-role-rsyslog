@@ -1,0 +1,14 @@
+---
+rsyslog_user: "{{ __rsyslog_user }}"
+rsyslog_group: "{{ __rsyslog_group }}"
+rsyslog_log_dir: /var/log
+rsyslog_service: "{{ __rsyslog_service }}"
+rsyslog_package: "{{ __rsyslog_package }}"
+rsyslog_extra_packages: []
+rsyslog_work_dir: "{{ __rsyslog_work_dir }}"
+rsyslog_conf_dir: "{{ __rsyslog_conf_dir }}"
+rsyslog_conf_file: "{{ rsyslog_conf_dir }}/rsyslog.conf"
+rsyslog_conf_d_dirs: "{{ __rsyslog_conf_d_dirs }}"
+rsyslog_config: ""
+rsyslog_config_flagments: []
+rsyslog_flags: ""
